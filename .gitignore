@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Databases
+*.db
+*.db-journal
+
+# Go Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+api-gateway/api-gateway
+auth-service/auth-service
+employee-service/employee-service
+task-service/task-service
+user-service/user-service
+
+# IDEs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Scratch / Temporary
+scratch/
+temp/
