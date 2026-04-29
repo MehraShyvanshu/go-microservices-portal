@@ -186,8 +186,14 @@ func updateEmployee(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(idStr)
 	var e Employee
 	json.NewDecoder(r.Body).Decode(&e)
-	db.Exec(`UPDATE employees SET name=?,email=?,role=?,department=?,phone=?,salary=?,status=? WHERE id=?`,
+	_, err = db.Exec(`UPDATE employees SET name=?,email=?,role=?,department=?,phone=?,salary=?,status=? WHERE id=?`,
 		e.Name, e.Email, e.Role, e.Department, e.Phone, e.Salary, e.Status, id)
+	if err != nil {
+		log.Printf("❌ Update failed for employee %d: %v", id, err)
+		http.Error(w, `{"error":"Update failed"}`, http.StatusInternalServerError)
+		return
+	}
+	log.Printf("✅ Updated employee %d: %s", id, e.Name)
 	e.ID = id
 	json.NewEncoder(w).Encode(e)
 }
